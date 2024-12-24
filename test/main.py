@@ -1,4 +1,14 @@
 import streamlit as st
+import sys
+from pathlib import Path
+
+# Get the absolute path of the project root directory
+ROOT_DIR = Path(__file__).parent
+
+# Add the project root directory to the Python path
+if str(ROOT_DIR) not in sys.path:
+    sys.path.append(str(ROOT_DIR))
+
 from main_chat import start_chatting 
 from pinecone_vector_database.query import pincone_vector_database_query
 
