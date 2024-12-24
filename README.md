@@ -1,7 +1,7 @@
 To run this code, use the following terminal command:
 
 ```sh
-git clone http://github.com/xnileshtiwari/refractored_llm.git
+git clone https://github.com/xnileshtiwari/potential-broccoli.git
 ```
 ```sh
 python -m venv myenv
