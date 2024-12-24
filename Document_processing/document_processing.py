@@ -10,7 +10,9 @@ import asyncio
 from Database.unique_id_generator import PDFIdentifier
 from pinecone_vector_database.index_creator import create_index
 from DASHBOARD.add_one_column import add_one_to_column
+from dotenv import load_dotenv
 
+load_dotenv()
 pdf_identifier = PDFIdentifier()
 
 start_time = time.time()
@@ -30,7 +32,7 @@ def document_chunking_and_uploading_to_vectorstore(filepath):
 
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
 
-        pc = Pinecone(api_key="pcsk_4Mmneg_SmSzJRZU1PGro9Zi297vrJYM22HCNWEHxZKaqDz1LtjoxvMqoLBbyY9Gj4kt5Sm")
+        pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"]) # get api key
         index = pc.Index(id1) # get index
 
         vector_store = PineconeVectorStore(embedding=embeddings, index=index)
@@ -44,6 +46,8 @@ def document_chunking_and_uploading_to_vectorstore(filepath):
             async for page in loader.alazy_load():
                 # PyPDFLoader automatically includes page numbers in metadata
                 # We can verify the metadata here
+                # Adjust the page number by adding 1 to start from 1 instead of 0
+                page.metadata['page'] = page.metadata['page'] + 1
                 print(f"Loaded page {page.metadata['page']} with metadata: {page.metadata}")
                 pages.append(page)
             return pages
