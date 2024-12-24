@@ -1,4 +1,3 @@
-import pymysql
 from datetime import datetime
 from Database.connection import getconnection
 

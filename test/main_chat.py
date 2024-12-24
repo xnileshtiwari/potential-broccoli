@@ -60,7 +60,6 @@ def start_chatting(index_name, user_input):
 
 
 
-index_id = "017616d9"
 # with st.form(key='my_form'):
 #     input_text = st.text_input("Enter your query:")
 #     submit_button = st.form_submit_button(label='Submit')
