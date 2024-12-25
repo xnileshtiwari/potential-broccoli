@@ -8,8 +8,8 @@ import os
 from langchain_community.document_loaders import PyPDFLoader
 import asyncio
 from Database.unique_id_generator import PDFIdentifier
-from pinecone_vector_database.index_creator import create_index
 from DASHBOARD.add_one_column import add_one_to_column
+from pinecone_vector_database.index_creator import create_index
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,18 +22,23 @@ start_time = time.time()
 def document_chunking_and_uploading_to_vectorstore(filepath):
     try:
 
-        id1 = pdf_identifier.generate_id(filepath) # generate unique id
+        name_space = pdf_identifier.generate_id(filepath) # generate unique id
+        index_name_from_env = os.environ["INDEX_NAME"] # get index name
 
-        create_index(id1) # create index with unique idc
 
-        add_one_to_column(id1)
+        create_index(index_name_from_env) # create index with unique idc
+
+
+    
+        add_one_to_column(name_space) # add unique id to dashboard
 
         embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=os.environ["GOOGLE_API_KEY"])
 
         pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"]) # get api key
-        index = pc.Index(id1) # get index
+        index_name = os.environ["INDEX_NAME"] # get index name
+        index = pc.Index(index_name) # get index
 
-        vector_store = PineconeVectorStore(embedding=embeddings, index=index)
+        vector_store = PineconeVectorStore(embedding=embeddings, index=index, namespace=name_space) # create vector store
 
         # Define document loader
         filepath = filepath # file of pdf document
@@ -71,11 +76,11 @@ def document_chunking_and_uploading_to_vectorstore(filepath):
         
         # Print some statistics
         print(f"Processed {len(docs)} pages into {len(all_splits)} chunks")
-        return f"This PDF ID is: {id1}"
+        return f"This PDF ID is: {name_space}"
     except Exception as e:
         print(f"An error occurred: {str(e)}")
 
 
 
-# new_file = document_chunking_and_uploading_to_vectorstore(filepath="SC538.pdf")
-# print(new_file)
+new_file = document_chunking_and_uploading_to_vectorstore(filepath="SC6270.pdf")
+print(new_file)
