@@ -75,7 +75,7 @@
             responseDiv.style.display = 'none';
             
             try {
-                const response = await fetch('http://localhost:9000/process-document/', {
+                const response = await fetch('http://localhost:8000/process-document/', {
                     method: 'POST',
                     body: formData
                 });
