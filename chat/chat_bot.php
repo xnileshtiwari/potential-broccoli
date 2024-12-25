@@ -26,7 +26,7 @@ try {
     }
 
     // Initialize cURL session
-    $ch = curl_init('http://localhost:9000/chat');
+    $ch = curl_init('http://localhost:8000/chat');
     
     // Set cURL options
     curl_setopt($ch, CURLOPT_POST, 1);
