@@ -56,7 +56,7 @@ class PDFIdentifier:
                 return stored_id
         
         # Generate new unique ID
-        new_id = str(uuid.uuid4())[:8]
+        new_id = ''.join(filter(str.isalpha, str(uuid.uuid4())))[:8]
         
         # Store metadata
         self.metadata[new_id] = {
