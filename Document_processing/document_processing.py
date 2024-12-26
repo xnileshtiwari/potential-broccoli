@@ -82,5 +82,5 @@ def document_chunking_and_uploading_to_vectorstore(filepath):
 
 
 
-new_file = document_chunking_and_uploading_to_vectorstore(filepath="SC6270.pdf")
-print(new_file)
+# new_file = document_chunking_and_uploading_to_vectorstore(filepath="SC6270.pdf")
+# print(new_file)
