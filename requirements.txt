@@ -55,7 +55,6 @@ jsonpointer==3.0.0
 jsonschema==4.23.0
 jsonschema-specifications==2024.10.1
 kiwisolver==1.4.7
-langchain-cli==0.0.35
 langchain-community==0.3.13
 langchain-core==0.3.28
 langchain-google-genai==2.0.7
